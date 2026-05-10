@@ -1,0 +1,31 @@
+iPhone Sales Dashboard
+🚀 Project Overview
+This dashboard was developed as a freelance project for a retail client in Kolkata aiming to expand business operations and implement ad‑hoc changes in day‑to‑day 
+decision‑making. The solution leverages Power BI combined with data scraped from POS systems and sales logs, 
+transformed through a structured ETL pipeline into actionable insights.
+
+
+Technical Highlights
+Field Navigation: Instead of creating multiple separate visualizations, a field parameter was implemented. This allows users to dynamically swap between dimensions 
+(Age Distribution, Branch, Gender, Locality, Payment Method, iPhone Model) in a single bar chart without impacting model performance.
+AI‑Generated Insights: Smart Narrative and AI‑driven analysis were integrated to automatically highlight sales trends, anomalies, and growth opportunities. 
+This makes the dashboard self‑explanatory and reduces manual interpretation.
+Visualization Optimization: Multiple charts were clubbed into unified visuals using parameters and slicers, improving performance and providing a cleaner user experience.
+
+ETL Workflow:
+Extract: Data scraped from POS and sales logs.
+Transform: Cleaned, standardized, and enriched with calculated fields (Age Groups, Month-Year, Revenue KPIs).
+Load: Integrated into Power BI for interactive exploration.
+
+📈 AI Impact
+Automated Narratives: AI insights explain revenue drivers, customer demographics, and payment trends in natural language.
+Trend Forecasting: Identifies seasonal peaks and customer behavior shifts.
+Conversion Strategies: Suggests how to turn low‑performing models, branches, or payment methods into growth opportunities.
+Ease of Use: Non‑technical users can interact with the dashboard, swap parameters, and receive AI‑generated recommendations instantly.
+
+
+
+
+
+
+

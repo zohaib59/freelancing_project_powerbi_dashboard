@@ -1,16 +1,22 @@
 iPhone Sales Dashboard
 🚀 Project Overview
-This dashboard was developed as a freelance project for a retail client in Kolkata aiming to expand business operations and implement ad‑hoc changes in day‑to‑day 
+This dashboard was developed as a freelance project for a retail client in Kolkata aiming to expand business 
+operations and implement ad‑hoc changes in day‑to‑day 
 decision‑making. The solution leverages Power BI combined with data scraped from POS systems and sales logs, 
 transformed through a structured ETL pipeline into actionable insights.
 
 
 Technical Highlights
-Field Navigation: Instead of creating multiple separate visualizations, a field parameter was implemented. This allows users to dynamically swap between dimensions 
-(Age Distribution, Branch, Gender, Locality, Payment Method, iPhone Model) in a single bar chart without impacting model performance.
-AI‑Generated Insights: Smart Narrative and AI‑driven analysis were integrated to automatically highlight sales trends, anomalies, and growth opportunities. 
+Field Navigation: Instead of creating multiple separate visualizations, a field parameter was implemented. 
+This allows users to dynamically swap between dimensions 
+(Age Distribution, Branch, Gender, Locality, Payment Method, iPhone Model) in a single bar chart without impacting 
+model performance.
+AI‑Generated Insights: Smart Narrative and AI‑driven analysis were integrated to automatically highlight 
+sales trends,anomalies, 
+and growth opportunities. 
 This makes the dashboard self‑explanatory and reduces manual interpretation.
-Visualization Optimization: Multiple charts were clubbed into unified visuals using parameters and slicers, improving performance and providing a cleaner user experience.
+Visualization Optimization: Multiple charts were clubbed into unified visuals using parameters and slicers,
+improving performance and providing a cleaner user experience.
 
 ETL Workflow:
 Extract: Data scraped from POS and sales logs.
@@ -21,7 +27,143 @@ Load: Integrated into Power BI for interactive exploration.
 Automated Narratives: AI insights explain revenue drivers, customer demographics, and payment trends in natural language.
 Trend Forecasting: Identifies seasonal peaks and customer behavior shifts.
 Conversion Strategies: Suggests how to turn low‑performing models, branches, or payment methods into growth opportunities.
-Ease of Use: Non‑technical users can interact with the dashboard, swap parameters, and receive AI‑generated recommendations instantly.
+Ease of Use: Non‑technical users can interact with the dashboard, swap parameters, and receive AI‑generated recommendations 
+instantly.
+
+DAX_Measures
+// =====================
+// KPI Measures
+// =====================
+TotalRevenue = SUM('kolkata_iphone_sales'[Price])
+
+TotalQuantity = SUM('kolkata_iphone_sales'[Quantity])
+
+UniqueCustomers = DISTINCTCOUNT('kolkata_iphone_sales'[Customer_Name])
+
+AverageSellingPrice = DIVIDE([TotalRevenue], [TotalQuantity])
+
+// =====================
+// Age Group Distribution
+// =====================
+AgeGroup = 
+SWITCH(TRUE(),
+    'kolkata_iphone_sales'[Age] <= 25, "18-25",
+    'kolkata_iphone_sales'[Age] <= 35, "26-35",
+    'kolkata_iphone_sales'[Age] <= 45, "36-45",
+    'kolkata_iphone_sales'[Age] <= 55, "46-55",
+    "56+"
+)
+
+RevenueByAgeGroup = 
+SUMMARIZE(
+    'kolkata_iphone_sales',
+    [AgeGroup],
+    "Revenue", SUM('kolkata_iphone_sales'[Price]),
+    "Quantity", SUM('kolkata_iphone_sales'[Quantity])
+)
+
+// =====================
+// Revenue by iPhone Model
+// =====================
+RevenueByModel = 
+SUMMARIZE(
+    'kolkata_iphone_sales',
+    'kolkata_iphone_sales'[iPhone_Model],
+    "Revenue", SUM('kolkata_iphone_sales'[Price]),
+    "Quantity", SUM('kolkata_iphone_sales'[Quantity])
+)
+
+// =====================
+// Revenue by Branch
+// =====================
+RevenueByBranch = 
+SUMMARIZE(
+    'kolkata_iphone_sales',
+    'kolkata_iphone_sales'[Branch],
+    "Revenue", SUM('kolkata_iphone_sales'[Price]),
+    "Quantity", SUM('kolkata_iphone_sales'[Quantity])
+)
+
+// =====================
+// Revenue by Sales Person
+// =====================
+RevenueBySalesPerson = 
+SUMMARIZE(
+    'kolkata_iphone_sales',
+    'kolkata_iphone_sales'[Sales_Person],
+    "Revenue", SUM('kolkata_iphone_sales'[Price]),
+    "Quantity", SUM('kolkata_iphone_sales'[Quantity])
+)
+
+// =====================
+// Revenue by Locality
+// =====================
+RevenueByLocality = 
+SUMMARIZE(
+    'kolkata_iphone_sales',
+    'kolkata_iphone_sales'[Locality],
+    "Revenue", SUM('kolkata_iphone_sales'[Price]),
+    "Quantity", SUM('kolkata_iphone_sales'[Quantity])
+)
+
+// =====================
+// Revenue by Color
+// =====================
+RevenueByColor = 
+SUMMARIZE(
+    'kolkata_iphone_sales',
+    'kolkata_iphone_sales'[Color],
+    "Revenue", SUM('kolkata_iphone_sales'[Price]),
+    "Quantity", SUM('kolkata_iphone_sales'[Quantity])
+)
+
+// =====================
+// Revenue by Storage
+// =====================
+RevenueByStorage = 
+SUMMARIZE(
+    'kolkata_iphone_sales',
+    'kolkata_iphone_sales'[Storage],
+    "Revenue", SUM('kolkata_iphone_sales'[Price]),
+    "Quantity", SUM('kolkata_iphone_sales'[Quantity])
+)
+
+// =====================
+// Revenue by Gender
+// =====================
+RevenueByGender = 
+SUMMARIZE(
+    'kolkata_iphone_sales',
+    'kolkata_iphone_sales'[Gender],
+    "Revenue", SUM('kolkata_iphone_sales'[Price]),
+    "Quantity", SUM('kolkata_iphone_sales'[Quantity])
+)
+
+// =====================
+// Revenue by Payment Method
+// =====================
+RevenueByPaymentMethod = 
+SUMMARIZE(
+    'kolkata_iphone_sales',
+    'kolkata_iphone_sales'[Payment_Method],
+    "Revenue", SUM('kolkata_iphone_sales'[Price]),
+    "Quantity", SUM('kolkata_iphone_sales'[Quantity])
+)
+
+// =====================
+// Sales Trend (Month-Year)
+// =====================
+SalesMonthYear = FORMAT('kolkata_iphone_sales'[Sale_Date], "MMM-YYYY")
+
+RevenueByMonth = 
+SUMMARIZE(
+    'kolkata_iphone_sales',
+    [SalesMonthYear],
+    "Revenue", SUM('kolkata_iphone_sales'[Price]),
+    "Quantity", SUM('kolkata_iphone_sales'[Quantity])
+)
+
+
 
 
 
